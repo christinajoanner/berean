@@ -475,7 +475,7 @@ st.markdown("<br><hr>", unsafe_allow_html=True)
 # UNDERWRITING TOOL
 # ══════════════════════════════════════════════════════════════════════════════
 
-st.markdown('<p class="section-label">Level 1 — Probabilistic Underwriting v2.1</p>', unsafe_allow_html=True)
+st.markdown('<p class="section-label">Level 1 — Probabilistic Underwriting</p>', unsafe_allow_html=True)
 
 # ── Strategy + target IRR + simulation count ──────────────────────────────────
 sa, sb, sc, _ = st.columns([1.4, 1.2, 1.4, 4])
