@@ -7,82 +7,89 @@ st.set_page_config(page_title="Berean", layout="wide", initial_sidebar_state="co
 
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Manrope:wght@400;500;600&display=swap');
 
 :root {
-    --background: #06101D;
-    --background-soft: #071426;
+    --bg-deep: #06101D;
+    --bg-soft: #071426;
     --panel: #081827;
-    --panel-soft: #0A1A2D;
     --text-primary: #E7E1D6;
-    --text-secondary: rgba(231, 225, 214, 0.84);
     --text-muted: rgba(231, 225, 214, 0.60);
     --gold: #C9A961;
     --teal: #78D8D2;
-    --teal-hover: #8BE5DF;
     --line: rgba(231, 225, 214, 0.08);
+    --line-accent: rgba(201, 169, 97, 0.15);
 }
 
-* {
-    margin: 0;
-    padding: 0;
-}
-
-body, [data-testid="stAppViewContainer"] {
-    background: linear-gradient(135deg, var(--background) 0%, var(--background-soft) 50%, var(--background) 100%);
-    background-attachment: fixed;
+html, body, [data-testid="stAppViewContainer"] {
+    background-color: var(--bg-deep);
     background-image: 
         radial-gradient(circle at 70% 20%, rgba(201, 169, 97, 0.06), transparent 32%),
         radial-gradient(circle at 75% 35%, rgba(120, 216, 210, 0.08), transparent 30%),
+        radial-gradient(circle at 20% 60%, rgba(7, 20, 38, 0.95), transparent 45%),
         linear-gradient(rgba(231, 225, 214, 0.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(231, 225, 214, 0.045) 1px, transparent 1px),
-        linear-gradient(135deg, var(--background) 0%, var(--background-soft) 50%);
-    background-size: auto, auto, 72px 72px, 72px 72px, 100% 100%;
-    color: var(--text-primary);
+        linear-gradient(90deg, rgba(231, 225, 214, 0.045) 1px, transparent 1px);
+    background-size: auto, auto, auto, 72px 72px, 72px 72px;
+    background-attachment: fixed;
 }
 
 .main {
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 1000px;
 }
 
 /* Typography */
 h1 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 3rem;
+    font-size: 2.2rem;
     font-weight: 400;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
     color: var(--text-primary);
-    margin-bottom: 0.5rem;
+    margin: 2rem 0 0.5rem 0;
 }
 
 h2 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: 400;
     color: var(--text-primary);
     margin: 1.5rem 0 1rem 0;
 }
 
-h3 {
+p, span {
     font-family: 'Manrope', sans-serif;
-    font-size: 0.9rem;
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+/* Eyebrow text */
+.eyebrow {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.7rem;
     font-weight: 600;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--gold);
     margin-bottom: 1rem;
+}
+
+/* Section dividers */
+hr {
+    border: none;
+    height: 1px;
+    background: var(--line);
+    margin: 2rem 0;
 }
 
 /* Inputs */
 .stNumberInput input,
 .stSelectbox select,
 .stTextInput input {
-    background: var(--panel-soft) !important;
-    border: 1px solid rgba(120, 216, 210, 0.15) !important;
+    background: rgba(8, 24, 39, 0.6) !important;
+    border: 1px solid var(--line-accent) !important;
     color: var(--text-primary) !important;
-    border-radius: 4px !important;
-    font-family: 'Manrope', sans-serif;
+    border-radius: 2px !important;
+    font-family: 'Manrope', sans-serif !important;
+    padding: 0.5rem 0.75rem !important;
 }
 
 .stNumberInput input:focus,
@@ -95,301 +102,340 @@ h3 {
 /* Buttons */
 .stButton > button {
     background: var(--teal) !important;
-    color: var(--background) !important;
+    color: var(--bg-deep) !important;
+    font-family: 'Manrope', sans-serif !important;
     font-weight: 600 !important;
-    border: none !important;
-    border-radius: 4px !important;
-    font-family: 'Manrope', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
     font-size: 0.85rem !important;
-    transition: all 0.2s;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
+    border: none !important;
+    border-radius: 2px !important;
+    padding: 0.6rem 1.5rem !important;
+    transition: all 0.15s !important;
 }
 
 .stButton > button:hover {
-    background: var(--teal-hover) !important;
+    background: rgba(120, 216, 210, 0.9) !important;
 }
 
-/* Cards */
-.metric-card {
-    background: var(--panel);
-    border: 1px solid rgba(120, 216, 210, 0.1);
-    border-radius: 4px;
+/* Expander */
+.streamlit-expanderHeader {
+    background: transparent !important;
+    border: 1px solid var(--line-accent) !important;
+    border-radius: 2px !important;
+    padding: 1rem !important;
+}
+
+.streamlit-expanderHeader:hover {
+    background: rgba(120, 216, 210, 0.02) !important;
+}
+
+/* Section box */
+.section-box {
+    border: 1px solid var(--line-accent);
+    border-radius: 2px;
     padding: 1.5rem;
-    text-align: center;
+    margin-bottom: 1.5rem;
+    background: rgba(8, 24, 39, 0.3);
+}
+
+.section-label {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+}
+
+/* Metric display */
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.metric-item {
+    border: 1px solid var(--line-accent);
+    padding: 1.5rem;
+    background: rgba(8, 24, 39, 0.3);
+    border-radius: 2px;
 }
 
 .metric-label {
     font-family: 'Manrope', sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--text-muted);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
 }
 
 .metric-value {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 400;
     color: var(--text-primary);
 }
 
-/* Divider */
-hr {
-    border: none;
-    border-top: 1px solid var(--line);
+/* Verdict card */
+.verdict-card {
+    border-left: 2px solid var(--teal);
+    border: 1px solid var(--line-accent);
+    border-left: 3px solid var(--teal);
+    padding: 2rem;
     margin: 2rem 0;
+    background: rgba(8, 24, 39, 0.3);
+}
+
+.verdict-label {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.75rem;
+}
+
+.verdict-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin: 0;
 }
 
 /* Table */
 table {
     width: 100%;
     border-collapse: collapse;
+    margin: 1.5rem 0;
 }
 
 th, td {
-    padding: 1rem;
     text-align: left;
+    padding: 0.75rem 0;
     border-bottom: 1px solid var(--line);
     font-family: 'Manrope', sans-serif;
-    font-size: 0.9rem;
 }
 
 th {
-    font-weight: 600;
-    color: var(--gold);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-size: 0.75rem;
-}
-
-td {
-    color: var(--text-primary);
-}
-
-/* Verdict box */
-.verdict-box {
-    background: linear-gradient(135deg, rgba(120, 216, 210, 0.08) 0%, rgba(120, 216, 210, 0.03) 100%);
-    border: 1px solid rgba(120, 216, 210, 0.3);
-    border-left: 4px solid var(--teal);
-    padding: 2rem;
-    margin: 2rem 0;
-    border-radius: 4px;
-}
-
-.verdict-label {
-    font-family: 'Manrope', sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 0.5rem;
+    color: var(--gold);
 }
 
-.verdict-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 3rem;
-    font-weight: 400;
+td {
+    font-size: 0.9rem;
     color: var(--text-primary);
 }
 </style>
 """, unsafe_allow_html=True)
 
 if "page" not in st.session_state:
-    st.session_state.page = "home"
+    st.session_state.page = "assumptions"
 if "deal" not in st.session_state:
     st.session_state.deal = None
 
-def page_home():
-    col1, col2 = st.columns([2, 1])
-    with col1:
-        st.markdown("# Examine *before* you invest.")
-        st.markdown("Berean gives sponsors and LPs a clearer standard for pre-deal CRE evaluation.")
-    with col2:
-        st.write("")
-        st.write("")
-        st.markdown("**Capital Decisions, Standardized**")
+def page_assumptions():
+    st.markdown('<p class="eyebrow">Berean Hospitality Underwriting</p>', unsafe_allow_html=True)
+    st.markdown("# Probabilistic analysis for hospitality investments.")
+    st.markdown("Model assumptions under uncertainty. Pressure-test conviction.")
     
     st.markdown("---")
     
-    col1, col2, col3 = st.columns([1, 1, 1])
+    # Deal metadata
+    st.markdown('<p class="eyebrow">Deal Information</p>', unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
     with col1:
-        st.markdown("### Deal Name")
-        deal_name = st.text_input("Name", placeholder="e.g., Cartagena Boutique", label_visibility="collapsed")
+        deal_name = st.text_input("Deal Name", placeholder="e.g., Cartagena Boutique")
     with col2:
-        st.markdown("### Market")
-        market = st.selectbox("Market", ["Caribbean Full-Service", "US Sunbelt Limited-Service"], label_visibility="collapsed")
-    with col3:
-        st.markdown("### Keys")
-        keys = st.number_input("Keys", value=120, label_visibility="collapsed", min_value=10, max_value=500)
+        market = st.selectbox("Market", ["Caribbean Full-Service", "US Sunbelt Limited-Service"])
     
     st.markdown("---")
-    st.markdown("### Market & Capture")
     
-    col1, col2, col3, col4 = st.columns(4)
-    with col1:
-        st.markdown("#### ADR")
-        adr = st.number_input("ADR", value=350, label_visibility="collapsed", step=10)
-    with col2:
-        st.markdown("#### Occupancy")
-        occ = st.number_input("Occ %", value=72, label_visibility="collapsed", step=1)
-    with col3:
-        st.markdown("#### RevPAR")
-        revpar = st.number_input("RevPAR", value=252, label_visibility="collapsed", step=10)
-    with col4:
-        st.markdown("#### Hold Period")
-        hold = st.number_input("Hold Yrs", value=5, label_visibility="collapsed", step=1)
+    # Market & Capture
+    with st.expander("Market & Capture", expanded=True):
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            adr = st.number_input("Average Daily Rate (ADR)", value=350, step=10)
+        with col2:
+            occupancy = st.number_input("Stabilized Occupancy %", value=72, step=1, min_value=20, max_value=100)
+        with col3:
+            hold_period = st.number_input("Hold Period (years)", value=5, step=1, min_value=1, max_value=20)
+    
+    # Operating P&L
+    with st.expander("Operating P&L"):
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            labor_pct = st.number_input("Labor % of Revenue", value=22.0, step=0.5, min_value=10.0, max_value=40.0)
+        with col2:
+            utilities = st.number_input("Utilities $/Key/Day", value=8.0, step=0.5, min_value=2.0, max_value=20.0)
+        with col3:
+            brand_fee = st.number_input("Brand Fee % of Revenue", value=5.0, step=0.5, min_value=1.0, max_value=10.0)
+    
+    # Capital & Growth
+    with st.expander("Capital & Growth"):
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            keys = st.number_input("Total Keys", value=120, step=10, min_value=10, max_value=500)
+        with col2:
+            adr_growth = st.number_input("Annual ADR Growth %", value=3.0, step=0.5, min_value=-5.0, max_value=10.0)
+        with col3:
+            capex_reserve = st.number_input("Annual CapEx Reserve %", value=4.0, step=0.5, min_value=1.0, max_value=8.0)
+    
+    # Financing
+    with st.expander("Financing"):
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            ltv = st.number_input("LTV %", value=65, step=5, min_value=20, max_value=80)
+        with col2:
+            rate = st.number_input("Interest Rate %", value=6.5, step=0.1, min_value=2.0, max_value=10.0)
+        with col3:
+            amort = st.number_input("Amortization (years)", value=25, step=1, min_value=5, max_value=30)
     
     st.markdown("---")
-    st.markdown("### Operating Assumptions")
     
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.markdown("#### Labor %")
-        labor = st.number_input("Labor %", value=22.0, label_visibility="collapsed", step=0.5)
-    with col2:
-        st.markdown("#### Utilities $/Key")
-        utilities = st.number_input("Utils", value=8.0, label_visibility="collapsed", step=0.5)
-    with col3:
-        st.markdown("#### Brand Fee %")
-        brand = st.number_input("Brand %", value=5.0, label_visibility="collapsed", step=0.5)
-    
-    st.write("")
-    if st.button("Run Analysis", use_container_width=True):
+    if st.button("Analyze", use_container_width=True):
         st.session_state.deal = {
-            "name": deal_name or "Untitled Deal",
+            "name": deal_name or "Untitled",
             "market": market,
-            "keys": keys,
             "adr": adr,
-            "occupancy": occ,
-            "hold": hold,
-            "labor": labor,
+            "occupancy": occupancy,
+            "hold": hold_period,
+            "labor": labor_pct,
             "utilities": utilities,
-            "brand": brand,
+            "brand": brand_fee,
+            "keys": keys,
+            "growth": adr_growth,
+            "capex": capex_reserve,
+            "ltv": ltv,
+            "rate": rate,
+            "amort": amort,
         }
         st.session_state.page = "results"
         st.rerun()
 
 def page_results():
     if not st.session_state.deal:
-        st.info("Run an analysis first")
+        st.info("Run assumptions first")
         return
     
     d = st.session_state.deal
     
-    col1, col2 = st.columns([3, 1])
+    col1, col2 = st.columns([4, 1])
     with col1:
-        st.markdown(f"## {d['name']}")
-        st.markdown(f"**{d['market']}** • {d['keys']} Keys")
+        st.markdown(f"# {d['name']}")
+        st.markdown(f"**{d['market']}** | {d['keys']} Keys | {datetime.now().strftime('%b %d, %Y')}")
     with col2:
         st.write("")
-        if st.button("← New Deal"):
-            st.session_state.page = "home"
-            st.session_state.deal = None
+        if st.button("← Back"):
+            st.session_state.page = "assumptions"
             st.rerun()
     
     st.markdown("---")
     
-    # VERDICT
+    # Verdict
     st.markdown("""
-    <div class="verdict-box">
-        <div class="verdict-label">Recommendation</div>
-        <div class="verdict-text">Proceed to IC</div>
+    <div class="verdict-card">
+        <div class="verdict-label">Investment Committee Recommendation</div>
+        <div class="verdict-text">Proceed</div>
     </div>
     """, unsafe_allow_html=True)
     
-    # KEY METRICS
-    st.markdown("### Probability of Clearing Target IRR")
+    st.markdown('<p class="eyebrow">Probability & Returns</p>', unsafe_allow_html=True)
+    
     col1, col2, col3, col4 = st.columns(4)
     with col1:
-        st.markdown('<div class="metric-card"><div class="metric-label">P50 IRR</div><div class="metric-value">21.6%</div></div>', unsafe_allow_html=True)
+        st.markdown("""
+        <div class="metric-item">
+            <div class="metric-label">P50 IRR</div>
+            <div class="metric-value">21.6%</div>
+        </div>
+        """, unsafe_allow_html=True)
     with col2:
-        st.markdown('<div class="metric-card"><div class="metric-label">P10 IRR</div><div class="metric-value">4.2%</div></div>', unsafe_allow_html=True)
+        st.markdown("""
+        <div class="metric-item">
+            <div class="metric-label">P10 IRR</div>
+            <div class="metric-value">4.2%</div>
+        </div>
+        """, unsafe_allow_html=True)
     with col3:
-        st.markdown('<div class="metric-card"><div class="metric-label">P90 IRR</div><div class="metric-value">37.8%</div></div>', unsafe_allow_html=True)
+        st.markdown("""
+        <div class="metric-item">
+            <div class="metric-label">MOIC</div>
+            <div class="metric-value">2.3x</div>
+        </div>
+        """, unsafe_allow_html=True)
     with col4:
-        st.markdown('<div class="metric-card"><div class="metric-label">Probability</div><div class="metric-value">88%</div></div>', unsafe_allow_html=True)
+        st.markdown("""
+        <div class="metric-item">
+            <div class="metric-label">Probability (≥15% IRR)</div>
+            <div class="metric-value">88%</div>
+        </div>
+        """, unsafe_allow_html=True)
     
     st.markdown("---")
+    st.markdown('<p class="eyebrow">Monte Carlo Distribution</p>', unsafe_allow_html=True)
     
-    # DISTRIBUTION CHART
-    st.markdown("### Probability Distribution")
-    
-    irr_data = np.random.normal(21.6, 8.5, 10000)
+    irr_dist = np.random.normal(21.6, 8.5, 10000)
     
     fig = go.Figure()
     fig.add_trace(go.Histogram(
-        x=irr_data,
+        x=irr_dist,
         nbinsx=60,
         marker=dict(color="#78D8D2"),
         showlegend=False,
     ))
-    fig.add_vline(x=21.6, line_dash="solid", line_color="#C9A961", line_width=2, annotation_text="P50: 21.6%")
-    fig.add_vline(x=4.2, line_dash="dash", line_color="#ff6b6b", line_width=1)
-    fig.add_vline(x=37.8, line_dash="dash", line_color="#4ecdc4", line_width=1)
+    fig.add_vline(x=21.6, line_dash="solid", line_color="#C9A961", line_width=2)
+    fig.add_vline(x=4.2, line_dash="dot", line_color="#E7E1D6", line_width=1)
+    fig.add_vline(x=37.8, line_dash="dot", line_color="#E7E1D6", line_width=1)
     
     fig.update_layout(
-        xaxis_title="Net IRR (%)",
+        xaxis_title="Net IRR %",
         yaxis_title="Frequency",
         template="plotly_dark",
         plot_bgcolor="#081827",
         paper_bgcolor="#06101D",
-        font=dict(family="Manrope", color="#E7E1D6"),
-        height=400,
+        font=dict(family="Manrope", size=11, color="#E7E1D6"),
+        height=350,
+        margin=dict(l=50, r=50, t=30, b=50),
         showlegend=False,
-        hovermode="x unified",
     )
-    fig.update_xaxes(gridcolor="rgba(120, 216, 210, 0.1)")
-    fig.update_yaxes(gridcolor="rgba(120, 216, 210, 0.1)")
+    fig.update_xaxes(gridcolor="rgba(231, 225, 214, 0.05)", showgrid=True)
+    fig.update_yaxes(gridcolor="rgba(231, 225, 214, 0.05)", showgrid=True)
     
     st.plotly_chart(fig, use_container_width=True)
     
     st.markdown("---")
+    st.markdown('<p class="eyebrow">Scenario Analysis</p>', unsafe_allow_html=True)
     
-    # SCENARIOS
-    st.markdown("### Scenario Summary")
-    
-    scenarios = {
-        "Scenario": ["Base Case", "Downside", "Upside"],
-        "Probability": ["60%", "25%", "15%"],
-        "IRR": ["21.6%", "8.3%", "34.7%"],
-        "MOIC": ["2.3x", "1.1x", "3.5x"],
-        "DSCR (Min)": ["1.24x", "0.98x", "1.54x"],
-    }
-    
-    col1, col2, col3, col4, col5 = st.columns(5)
-    cols = [col1, col2, col3, col4, col5]
-    headers = ["Scenario", "Probability", "IRR", "MOIC", "DSCR (Min)"]
-    
-    for col, header in zip(cols, headers):
-        with col:
-            st.markdown(f"<div style='text-align: center;'><p style='font-size: 0.7rem; text-transform: uppercase; color: #C9A961; font-weight: 600; letter-spacing: 0.1em;'>{header}</p></div>", unsafe_allow_html=True)
-    
-    for i in range(3):
-        col1, col2, col3, col4, col5 = st.columns(5)
-        cols = [col1, col2, col3, col4, col5]
-        values = [scenarios["Scenario"][i], scenarios["Probability"][i], scenarios["IRR"][i], scenarios["MOIC"][i], scenarios["DSCR (Min)"][i]]
-        for col, val in zip(cols, values):
-            with col:
-                st.markdown(f"<div style='text-align: center; padding: 0.75rem; background: #0A1A2D; border: 1px solid rgba(120, 216, 210, 0.1); border-radius: 4px;'><p style='margin: 0; color: #E7E1D6;'>{val}</p></div>", unsafe_allow_html=True)
+    st.markdown("""
+    | Scenario | Probability | IRR | MOIC | Equity Multiple |
+    |----------|-------------|-----|------|-----------------|
+    | Base Case | 60% | 21.6% | 2.3x | 1.8x |
+    | Downside | 25% | 8.3% | 1.1x | 0.9x |
+    | Upside | 15% | 34.7% | 3.5x | 2.8x |
+    """)
     
     st.markdown("---")
+    st.markdown('<p class="eyebrow">Risk Drivers</p>', unsafe_allow_html=True)
     
-    # RISK DRIVERS
-    st.markdown("### Key Risk Drivers")
-    
-    drivers = ["ADR Growth", "Occupancy", "Exit Cap Rate", "OpEx per Key", "Construction Cost"]
-    impact = [6.2, 5.1, 3.2, 2.1, 1.8]
+    drivers = ["ADR Growth", "Occupancy Stability", "Exit Cap Rate", "Labor Inflation", "Construction Timing"]
+    impact = [6.2, 5.1, 3.2, 2.1, 1.5]
     
     fig = go.Figure(go.Bar(
-        x=impact,
         y=drivers,
+        x=impact,
         orientation='h',
         marker=dict(color="#78D8D2"),
-        text=[f"±{i:.1f}%" for i in impact],
+        text=[f"{i:.1f}%" for i in impact],
         textposition='auto',
     ))
     
@@ -398,35 +444,84 @@ def page_results():
         template="plotly_dark",
         plot_bgcolor="#081827",
         paper_bgcolor="#06101D",
-        font=dict(family="Manrope", color="#E7E1D6"),
+        font=dict(family="Manrope", size=11, color="#E7E1D6"),
         height=300,
-        margin=dict(l=150),
+        margin=dict(l=150, r=50, t=30, b=50),
         showlegend=False,
     )
-    fig.update_xaxes(gridcolor="rgba(120, 216, 210, 0.1)")
+    fig.update_xaxes(gridcolor="rgba(231, 225, 214, 0.05)", showgrid=True)
     
     st.plotly_chart(fig, use_container_width=True)
     
     st.markdown("---")
-    
-    # WHAT MUST BE TRUE
-    st.markdown("### What Must Be True")
+    st.markdown('<p class="eyebrow">What Must Be True</p>', unsafe_allow_html=True)
     
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("""
-        - **ADR CAGR** ≥ 3.5%
-        - **Exit Cap** ≤ 6.75%
-        - **Stabilized Occ** ≥ 68%
+        - ADR CAGR achieves 3.5%+
+        - Exit cap environment ≤ 6.75%
+        - Stabilized occupancy ≥ 68%
         """)
     with col2:
         st.markdown("""
-        - **PIP Budget** within 10%
-        - **Labor Inflation** ≤ 2.5%/yr
-        - **Brand Retention** stable
+        - PIP execution within budget
+        - Labor inflation ≤ 2.5% annually
+        - Brand partnership remains stable
         """)
+    
+    st.markdown("---")
+    
+    if st.button("Export Conviction Memo", use_container_width=True):
+        st.session_state.page = "memo"
+        st.rerun()
 
-if st.session_state.page == "home":
-    page_home()
-else:
+def page_memo():
+    if not st.session_state.deal:
+        st.info("Run analysis first")
+        return
+    
+    d = st.session_state.deal
+    
+    st.markdown('<p class="eyebrow">Investment Conviction Memo</p>', unsafe_allow_html=True)
+    st.markdown(f"# {d['name']}")
+    st.markdown(f"{d['market']} | {d['keys']} Keys | {datetime.now().strftime('%B %d, %Y')}")
+    
+    st.markdown("---")
+    
+    st.markdown("## Investment Committee Summary")
+    
+    st.markdown("""
+    **Recommendation:** Proceed to Investment Committee
+
+    This hospitality development demonstrates strong probability of achieving target returns with acceptable downside risk.
+    Sponsor operational track record supports assumption credibility across critical variables (ADR growth, occupancy
+    stabilization, labor cost management). Exit cap rate represents primary uncertainty; recommend market condition
+    monitoring through stabilization phase.
+    """)
+    
+    st.markdown("---")
+    st.markdown("## Key Metrics")
+    
+    st.markdown("""
+    | Metric | Value | Notes |
+    |--------|-------|-------|
+    | P50 Net IRR | 21.6% | Median probability outcome |
+    | P10 Downside IRR | 4.2% | Worst decile performance |
+    | Probability of Target | 88% | ≥15% IRR achievement |
+    | Equity Multiple | 2.3x | P50 outcome |
+    | Hold Period | 5 years | Market cycle aligned |
+    """)
+    
+    st.markdown("---")
+    
+    if st.button("← Back to Analysis"):
+        st.session_state.page = "results"
+        st.rerun()
+
+if st.session_state.page == "assumptions":
+    page_assumptions()
+elif st.session_state.page == "results":
     page_results()
+elif st.session_state.page == "memo":
+    page_memo()
